@@ -10,6 +10,8 @@ in a render queue:
 
 Originals are set aside and can be restored with undo.
 
+![Chroma Sequence Archiver](screenshot.png)
+
 **Download:** see [Releases](https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest), or the
 [download page](https://jameslashmar.github.io/Chroma-Sequence-Archiver-releases/).
 

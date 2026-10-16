@@ -74,6 +74,9 @@
   th { color: var(--muted); font-weight: 500; }
   footer { padding: 34px 0 60px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
   footer p { margin: 6px 0; }
+  figure.shot { margin: 30px 0 0; }
+  figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  figure.shot figcaption { color: var(--muted); font-size: .9rem; margin-top: 10px; }
   @media (max-width: 520px) { .hero { padding-top: 28px; } }
   @media (prefers-reduced-motion: no-preference) { .btn { transition: transform .12s ease; } .btn:hover { transform: translateY(-1px); } }
 </style>
@@ -94,6 +97,10 @@
         <a class="btn alt" id="dl-mac" href="https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest">Download for macOS<small id="dl-mac-v">Signed and notarised disk image</small></a>
       </div>
       <p class="note">Free. No account, no tracking. Everything it needs is inside the installer.</p>
+      <figure class="shot">
+        <img src="screenshot.png" width="1600" height="1000" alt="Chroma Sequence Archiver on Windows: a treemap of a studio folder beside a list of image sequences and movies ranked by reclaimable space, with three items selected and a render queue of five jobs open on the right.">
+        <figcaption>Chroma Sequence Archiver, shown with a demo library.</figcaption>
+      </figure>
     </div>
 
     <section aria-labelledby="what">

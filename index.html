@@ -76,6 +76,16 @@
   footer p { margin: 6px 0; }
   figure.shot { margin: 30px 0 0; }
   figure.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  figure.shot .zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--radius); }
+  figure.shot .zoom:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  dialog.lightbox { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(6, 6, 12, .94); color: #f1edf5; }
+  dialog.lightbox::backdrop { background: rgba(6, 6, 12, .6); }
+  dialog.lightbox .stage { width: 100%; height: 100%; overflow: hidden; display: grid; place-items: center; padding: 48px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); box-sizing: border-box; }
+  dialog.lightbox .stage img { max-width: 100%; max-height: 100%; width: auto; height: auto; cursor: zoom-in; border-radius: 6px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  dialog.lightbox.zoomed .stage { overflow: auto; display: block; padding: 0; cursor: grab; }
+  dialog.lightbox.zoomed .stage img { max-width: none; max-height: none; cursor: zoom-out; border-radius: 0; box-shadow: none; }
+  dialog.lightbox .close { position: fixed; top: calc(10px + env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(20,20,31,.8); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; z-index: 2; }
+  dialog.lightbox .hint { position: fixed; left: 0; right: 0; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: .85rem; color: rgba(241,237,245,.7); pointer-events: none; }
   figure.shot figcaption { color: var(--muted); font-size: .9rem; margin-top: 10px; }
   @media (max-width: 520px) { .hero { padding-top: 28px; } }
   @media (prefers-reduced-motion: no-preference) { .btn { transition: transform .12s ease; } .btn:hover { transform: translateY(-1px); } }
@@ -98,7 +108,7 @@
       </div>
       <p class="note">Free. No account, no tracking. Everything it needs is inside the installer.</p>
       <figure class="shot">
-        <img src="screenshot.png" width="1600" height="1000" alt="Chroma Sequence Archiver on Windows: a treemap of a studio folder beside a list of image sequences and movies ranked by reclaimable space, with three items selected and a render queue of five jobs open on the right.">
+        <button type="button" class="zoom" id="shotOpen" aria-label="View the screenshot full size"><img src="screenshot.png" width="1600" height="1000" alt="Chroma Sequence Archiver on Windows: a treemap of a studio folder beside a list of image sequences and movies ranked by reclaimable space, with three items selected and a render queue of five jobs open on the right."></button>
         <figcaption>Chroma Sequence Archiver, shown with a demo library.</figcaption>
       </figure>
     </div>
@@ -163,6 +173,51 @@ shasum -a 256 Chroma-Sequence-Archiver_*.dmg</code></pre>
       })
       .catch(function () {});
   } catch (e) {}
+})();
+</script>
+
+<dialog class="lightbox" id="lightbox" aria-label="Screenshot, full size">
+  <button type="button" class="close" id="lbClose" aria-label="Close">&times;</button>
+  <div class="stage" id="lbStage"><img src="screenshot.png" width="1600" height="1000" alt="Chroma Sequence Archiver screenshot, full size" id="lbImg"></div>
+  <p class="hint" id="lbHint">Click to zoom to full size. Esc to close.</p>
+</dialog>
+<script>
+(function () {
+  var dlg = document.getElementById("lightbox"), stage = document.getElementById("lbStage"), img = document.getElementById("lbImg"), hint = document.getElementById("lbHint");
+  if (!dlg || typeof dlg.showModal !== "function") return;
+  function setZoom(on, ev) {
+    if (on) {
+      var r = img.getBoundingClientRect();
+      var fx = ev ? (ev.clientX - r.left) / r.width : .5, fy = ev ? (ev.clientY - r.top) / r.height : .5;
+      dlg.classList.add("zoomed");
+      stage.scrollLeft = fx * img.naturalWidth - stage.clientWidth / 2;
+      stage.scrollTop = fy * img.naturalHeight - stage.clientHeight / 2;
+      hint.textContent = "Drag or scroll to look around. Click to fit. Esc to close.";
+    } else {
+      dlg.classList.remove("zoomed");
+      hint.textContent = "Click to zoom to full size. Esc to close.";
+    }
+  }
+  document.getElementById("shotOpen").addEventListener("click", function () { setZoom(false); dlg.showModal(); });
+  document.getElementById("lbClose").addEventListener("click", function () { dlg.close(); });
+  dlg.addEventListener("close", function () { setZoom(false); });
+  var drag = null, moved = false;
+  stage.addEventListener("pointerdown", function (e) {
+    moved = false;
+    if (dlg.classList.contains("zoomed")) { drag = { x: e.clientX, y: e.clientY, l: stage.scrollLeft, t: stage.scrollTop }; stage.setPointerCapture(e.pointerId); }
+  });
+  stage.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+    stage.scrollLeft = drag.l - dx; stage.scrollTop = drag.t - dy;
+  });
+  stage.addEventListener("pointerup", function () { drag = null; });
+  stage.addEventListener("click", function (e) {
+    if (moved) { moved = false; return; }
+    if (e.target === img) setZoom(!dlg.classList.contains("zoomed"), e);
+    else if (!dlg.classList.contains("zoomed")) dlg.close();
+  });
 })();
 </script>
 </body>

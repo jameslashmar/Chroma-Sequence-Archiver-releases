@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chroma Sequence Archiver</title>
+<meta name="description" content="Find the render sequences eating your storage, see why, and shrink them without touching the pixels that matter. Free for Windows and macOS.">
+<meta name="color-scheme" content="light dark">
+<style>
+  :root {
+    --bg: #fbf8f5;
+    --surface: #ffffff;
+    --text: #1c1722;
+    --muted: #6a6275;
+    --line: #e7e0e8;
+    --accent: #d9482b;
+    --accent-2: #f2a03d;
+    --accent-ink: #ffffff;
+    --code-bg: #f3eef4;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a14;
+      --surface: #14141f;
+      --text: #f1edf5;
+      --muted: #a39cb0;
+      --line: #28263a;
+      --accent: #ff6a45;
+      --accent-2: #ffb454;
+      --accent-ink: #14080a;
+      --code-bg: #1a1927;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; font-size: 15px; color: var(--muted); }
+  header.top strong { color: var(--text); letter-spacing: .02em; }
+  .hero { padding: 56px 0 40px; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1.05; margin: 0 0 18px; letter-spacing: -.02em; }
+  .hero h1 span { background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p.lede { font-size: 1.2rem; color: var(--muted); max-width: 40em; margin: 0 0 30px; }
+  .downloads { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn {
+    display: inline-flex; flex-direction: column; padding: 12px 22px; border-radius: 999px;
+    background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 600; line-height: 1.25;
+  }
+  .btn small { font-weight: 400; opacity: .85; font-size: .78rem; }
+  .btn.alt { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .btn:focus-visible, a:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 3px; }
+  .note { color: var(--muted); font-size: .9rem; margin-top: 14px; }
+  section { padding: 34px 0; border-top: 1px solid var(--line); }
+  section h2 { font-size: 1.5rem; margin: 0 0 18px; letter-spacing: -.01em; }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .card h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .96rem; }
+  ol.steps { padding-left: 1.2em; margin: 0; }
+  ol.steps li { margin: 8px 0; }
+  code, pre { font: 14px/1.5 ui-monospace, "SF Mono", Consolas, monospace; background: var(--code-bg); border-radius: 6px; }
+  code { padding: .1em .4em; }
+  pre { padding: 14px 16px; overflow-x: auto; }
+  pre code { padding: 0; background: none; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; }
+  footer { padding: 34px 0 60px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  footer p { margin: 6px 0; }
+  @media (max-width: 520px) { .hero { padding-top: 28px; } }
+  @media (prefers-reduced-motion: no-preference) { .btn { transition: transform .12s ease; } .btn:hover { transform: translateY(-1px); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <strong>Chroma Sequence Archiver</strong>
+    <a href="https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases">All releases</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Get your render storage back, <span>without losing what matters.</span></h1>
+      <p class="lede">Point it at the NAS, a LucidLink volume or a local drive. It finds every image sequence and movie, shows how each one is stored, ranks the worst offenders on a treemap, then shrinks them in a render queue: the right EXR compression for After Effects or Nuke, heavy ProRes to MP4 or ProRes LT, and QuickTime proxies.</p>
+      <div class="downloads">
+        <a class="btn" id="dl-win" href="https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest">Download for Windows<small id="dl-win-v">Installer, 64-bit</small></a>
+        <a class="btn alt" id="dl-mac" href="https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest">Download for macOS<small id="dl-mac-v">Signed and notarised disk image</small></a>
+      </div>
+      <p class="note">Free. No account, no tracking. Everything it needs is inside the installer.</p>
+    </div>
+
+    <section aria-labelledby="what">
+      <h2 id="what">What it does</h2>
+      <div class="grid">
+        <div class="card"><h3>Finds the waste</h3><p>Scans in parallel, reading one header per sequence or movie, so it stays quick over SMB. EXR, TIFF, PNG, TGA, DPX and QuickTime/MP4: passes, bit depth, compression, alpha, codec. Search, filter by codec and select hundreds at once.</p></div>
+        <div class="card"><h3>Shrinks it safely</h3><p>Picture passes go to DWAA, DWAB or ZIP. Data passes (Z, P, N, motion vectors, IDs, cryptomatte) stay lossless and keep their bit depth.</p></div>
+        <div class="card"><h3>Checks before it swaps</h3><p>A sample frame is encoded and measured first. Frame count, headers and pixels are verified, and originals are set aside on the same drive, never deleted, with one-click undo.</p></div>
+        <div class="card"><h3>Queues the lot</h3><p>Auto-queue picks the biggest wins for a target saving. Converts movies to MP4 (H.264/HEVC) or ProRes LT/Proxy/4444, warns before alpha would be lost, and makes ProRes 4444, 422 HQ and H.264 proxies with sRGB or ACEScg colour.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="install">
+      <h2 id="install">Install</h2>
+      <ol class="steps">
+        <li><strong>Windows:</strong> run the <code>-setup.exe</code> installer (or the <code>.msi</code>). It needs Windows 10 or 11 and WebView2, which is already on Windows 11.</li>
+        <li><strong>macOS:</strong> open the <code>.dmg</code> and drag the app into Applications. It is signed with a Developer ID and notarised by Apple. Apple silicon Macs only for now.</li>
+        <li>Open the app, choose a folder, and press Scan.</li>
+      </ol>
+      <p class="note">OpenImageIO and FFmpeg are bundled; nothing needs to be on your PATH.</p>
+    </section>
+
+    <section aria-labelledby="verify">
+      <h2 id="verify">Check your download</h2>
+      <p>Each release lists a <code>SHA256SUMS</code> file. Compare it with your download:</p>
+<pre><code># Windows (PowerShell)
+Get-FileHash .\Chroma-Sequence-Archiver_*_x64-setup.exe -Algorithm SHA256
+
+# macOS
+shasum -a 256 Chroma-Sequence-Archiver_*.dmg</code></pre>
+    </section>
+
+    <section aria-labelledby="open">
+      <h2 id="open">Open-source parts and source offer</h2>
+      <p>The app runs <strong>OpenImageIO</strong> (<code>oiiotool</code>, Apache-2.0) and <strong>FFmpeg</strong> as separate programs. The FFmpeg build is the LGPL one: no GPL and no non-free components, and no x264 or x265. The complete FFmpeg source and the build scripts used for each release are published as the <code>ffmpeg-source</code> asset on the <a href="https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases">releases page</a>. You can swap in your own FFmpeg by setting <code>CSA_FFMPEG</code>.</p>
+      <p>Every licence notice ships with the app as <code>THIRD_PARTY_NOTICES.txt</code> and is attached to each release.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Chroma Sequence Archiver is made by <a href="https://chroma.london">Chroma Studios Ltd</a>, London.</p>
+    <p>Questions or bugs: <a href="mailto:info@chroma.london">info@chroma.london</a></p>
+  </footer>
+</div>
+
+<script>
+// Progressive enhancement: point the buttons at the newest installers. Without JS (or if the
+// GitHub API is unreachable) they link to the releases page, which always works.
+(function () {
+  try {
+    fetch("https://api.github.com/repos/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest", { headers: { Accept: "application/vnd.github+json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (rel) {
+        if (!rel || !rel.assets) return;
+        var find = function (re) { return rel.assets.filter(function (a) { return re.test(a.name); })[0]; };
+        var win = find(/-setup\.exe$/), mac = find(/\.dmg$/);
+        var v = (rel.tag_name || "").replace(/^v/, "");
+        if (win) { document.getElementById("dl-win").href = win.browser_download_url; document.getElementById("dl-win-v").textContent = "Version " + v + ", 64-bit installer"; }
+        if (mac) { document.getElementById("dl-mac").href = mac.browser_download_url; document.getElementById("dl-mac-v").textContent = "Version " + v + ", signed and notarised"; }
+      })
+      .catch(function () {});
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

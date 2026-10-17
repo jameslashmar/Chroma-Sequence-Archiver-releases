@@ -10,6 +10,8 @@ in a render queue:
 
 Originals are set aside and can be restored with undo.
 
+A second mode, **System Clean** (Windows), finds caches, temp files, build folders, old installers and duplicates anywhere on a drive, explains why each is safe to remove, and cleans to the Recycle Bin or permanently. From 0.2.1 the app updates itself; every update is signature-checked.
+
 ![Chroma Sequence Archiver](screenshot.png)
 
 **Download:** see [Releases](https://github.com/jameslashmar/Chroma-Sequence-Archiver-releases/releases/latest), or the

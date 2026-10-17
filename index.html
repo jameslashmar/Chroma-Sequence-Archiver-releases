@@ -120,6 +120,8 @@
         <div class="card"><h3>Shrinks it safely</h3><p>Picture passes go to DWAA, DWAB or ZIP. Data passes (Z, P, N, motion vectors, IDs, cryptomatte) stay lossless and keep their bit depth.</p></div>
         <div class="card"><h3>Checks before it swaps</h3><p>A sample frame is encoded and measured first. Frame count, headers and pixels are verified, and originals are set aside on the same drive, never deleted, with one-click undo.</p></div>
         <div class="card"><h3>Queues the lot</h3><p>Auto-queue picks the biggest wins for a target saving. Converts movies to MP4 (H.264/HEVC) or ProRes LT/Proxy/4444, warns before alpha would be lost, and makes ProRes 4444, 422 HQ and H.264 proxies with sRGB or ACEScg colour.</p></div>
+        <div class="card"><h3>Cleans the rest of the drive</h3><p>System Clean mode (Windows) finds app and browser caches, package caches, old temp files, crash dumps, build folders, old installers, large videos and duplicates. Each item says why it is safe or why it is kept. Clean to the Recycle Bin, or delete permanently.</p></div>
+        <div class="card"><h3>Keeps itself up to date</h3><p>New releases show up as an Update button. Every update is signature-checked before it installs, so the app only ever accepts builds from Chroma.</p></div>
       </div>
     </section>
 
@@ -128,6 +130,7 @@
       <ol class="steps">
         <li><strong>Windows:</strong> run the <code>-setup.exe</code> installer (or the <code>.msi</code>). It needs Windows 10 or 11 and WebView2, which is already on Windows 11.</li>
         <li><strong>macOS:</strong> open the <code>.dmg</code> and drag the app into Applications. It is signed with a Developer ID and notarised by Apple. Apple silicon Macs only for now.</li>
+        <li><strong>Updating:</strong> from 0.2.1 on, the app offers new versions itself. If you have 0.1.0, install the latest version by hand once.</li>
         <li>Open the app, choose a folder, and press Scan.</li>
       </ol>
       <p class="note">OpenImageIO and FFmpeg are bundled; nothing needs to be on your PATH.</p>
